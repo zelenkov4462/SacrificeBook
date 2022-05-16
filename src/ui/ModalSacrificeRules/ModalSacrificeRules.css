@@ -1,0 +1,35 @@
+.modal__header  {
+    text-align: center;
+}
+
+.sacrifice__info {
+    display: flex;
+    text-align: center;
+    width: 100%;
+
+}
+
+.sacrifice__rules {
+    max-width: 250px;
+    max-height: 250px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+}
+
+.sacrifice__rules p{
+    text-align: left;
+    width: 100%;
+    margin: 0;
+
+}
+
+.sacrifice__rules p::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+.sacrifice__rules::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}

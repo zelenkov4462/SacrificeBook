@@ -1,0 +1,8 @@
+.linkSocial {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.linkSocial a {
+    margin-right: 20px;
+}

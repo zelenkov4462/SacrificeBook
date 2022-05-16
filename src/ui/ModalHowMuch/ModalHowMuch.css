@@ -1,0 +1,21 @@
+.modal__header  {
+    text-align: center;
+}
+
+.select__sacrifice {
+    text-align: center;
+
+}
+
+.select__sacrifice__each {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+
+}
+
+
+.select__NFT {
+    border: 1px solid black;
+
+}

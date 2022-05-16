@@ -1,0 +1,11 @@
+.WalletId {
+    background-color: lightgrey;
+    border: 1px solid black;
+    margin-left: auto;
+}
+
+.clearFix{
+    display: flex;
+
+
+}

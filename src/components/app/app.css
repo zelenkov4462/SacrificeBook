@@ -1,0 +1,9 @@
+.sacrificeMainInfo {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+.infoPlace {
+    height: 150px;
+}

@@ -1,0 +1,9 @@
+.sacrificeMainInfo {
+    display: flex;
+    justify-content: center;
+}
+
+.sacrificeMainInfo h3 {
+    margin-right: 25px;
+}
+
