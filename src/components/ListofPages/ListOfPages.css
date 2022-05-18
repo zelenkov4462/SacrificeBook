@@ -1,0 +1,14 @@
+.list-pages {
+    display: inline-block;
+    border: 1px solid black;
+    text-decoration: none;
+    font-size: 20px;
+
+}
+
+.list-pages a {
+    text-decoration: none;
+    color: black;
+}
+
+

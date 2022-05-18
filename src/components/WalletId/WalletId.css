@@ -5,7 +5,8 @@
 }
 
 .clearFix{
-    display: flex;
+    /*display: flex;*/
+    float: right;
 
 
 }

@@ -9,11 +9,15 @@
 
 .select__sacrifice__each {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     margin-bottom: 20px;
 
 }
 
+.select__sacrifice__each span {
+    font-size: 32px;
+  ;
+}
 
 .select__NFT {
     border: 1px solid black;

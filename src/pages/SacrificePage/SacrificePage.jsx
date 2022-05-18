@@ -6,20 +6,22 @@ import WalletId from "../../components/WalletId/WalletId";
 import useStore from "../../hooks/useStore/useStore";
 import { observer } from "mobx-react-lite"
 import ModalHowMuch from "../../ui/ModalHowMuch/ModalHowMuch";
+import ListOfPages from "../../components/ListofPages/ListofPages";
 
-
-const SacrificePage = () => {
+const SacrificePage = ({id}) => {
 
     const { ModalManager } = useStore();
 
     const onSacrificeClick = () => {
         ModalManager.open();
         ModalManager.setContent(<ModalHowMuch />);
+
     }
 
     return (
         <div>
-            <WalletId id={'0x98685c69887'}/>
+            <ListOfPages/>
+            <WalletId id={id}/>
             <AppHeader/>
             <div className={"sacrificeMainInfo"}>
                 <h3>Sacrificed right now</h3>

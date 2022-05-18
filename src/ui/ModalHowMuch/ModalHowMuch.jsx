@@ -1,24 +1,27 @@
 import React, {useState} from 'react';
 import Btn from "../../components/button";
-import Modal from "../../components/Modal/Modal";
+import {observer} from "mobx-react-lite";
+import useStore from "../../hooks/useStore/useStore";
+import pencil from '../../assets/icons/pencil.png'
+import help from '../../assets/icons/help.png'
 
 import './ModalHowMuch.css'
 import ModalSacrificeRules from "../ModalSacrificeRules/ModalSacrificeRules";
-import SacrificePage from "../../pages/SacrificePage/SacrificePage";
+import ModalThanks from "../ModalThanks/ModalThanks";
 
 const ModalHowMuch = () => {
+    const {ModalManager} = useStore();
 
-    const [modalActive, setModalActive] = useState(false)
+    const onSacrificeClick = () => {
+        ModalManager.removeContent();
+        ModalManager.setContent(<ModalSacrificeRules />);
 
-
-
-    const btnSacrifice = () => {
-
-
-
-        setModalActive(true)
     }
 
+    const onSelectNFT = () => {
+        ModalManager.removeContent();
+        ModalManager.setContent(<ModalThanks />);
+    }
 
     return (
         <div>
@@ -28,20 +31,18 @@ const ModalHowMuch = () => {
             <div className='select__sacrifice'>
                 <div className='select__sacrifice__each'>
                     <input></input>
-                    <img/>
+                    <img src={pencil} alt='pencil'/>
                     <span>ETH</span>
                 </div>
                 <div className='select__sacrifice__each'>
                     <div className='select__NFT'>1x</div>
-                    <Btn value={'Select NFT'}/>
-                    <img/>
+                    <Btn value={'Select NFT'} func={onSelectNFT}/>
+                    <img src={help} alt='help'/>
                 </div>
-                <Btn value='Sacrifice' func={btnSacrifice}/>
-            </div>
-            <div className='sacrifice__rules'>
+                <Btn value='Sacrifice' func={onSacrificeClick}/>
             </div>
         </div>
     );
 };
 
-export default ModalHowMuch;
+export default observer(ModalHowMuch);

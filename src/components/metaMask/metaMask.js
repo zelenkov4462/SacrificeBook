@@ -4,7 +4,7 @@ import { ethers } from "ethers";
 import { Button, Card } from "react-bootstrap";
 
 
-function MetaMask() {
+function MetaMask({updateAddress}) {
 
     // usetstate for storing and retrieving wallet details
     const [data, setdata] = useState({
@@ -23,9 +23,12 @@ function MetaMask() {
             window.ethereum
                 .request({ method: "eth_requestAccounts" })
                 .then((res) => accountChangeHandler(res[0]));
+
+
         } else {
             alert("install metamask extension!!");
         }
+
     };
 
     // getbalance function for getting a balance in
@@ -55,6 +58,9 @@ function MetaMask() {
 
         // Setting a balance
         getbalance(account);
+        {updateAddress(account)};
+
+
     };
 
     return (
@@ -72,7 +78,7 @@ function MetaMask() {
                         <strong>Balance: </strong>
                         {data.Balance}
                     </Card.Text>
-                    <Button onClick={btnhandler} variant="primary">
+                    <Button onClick={btnhandler}  variant="primary">
                         Connect to wallet
                     </Button>
                 </Card.Body>

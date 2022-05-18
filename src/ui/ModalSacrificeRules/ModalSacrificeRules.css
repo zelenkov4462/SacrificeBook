@@ -4,9 +4,14 @@
 
 .sacrifice__info {
     display: flex;
+    justify-content: space-around;
     text-align: center;
     width: 100%;
 
+}
+
+.sacrifice__info img {
+    height: 128px;
 }
 
 .sacrifice__rules {
