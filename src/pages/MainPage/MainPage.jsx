@@ -7,8 +7,6 @@ import './MainPage.css'
 import EmptyPlace from "../../components/EmptyPlace/EmptyPlace";
 import {Link} from "react-router-dom";
 import MetaMask from "../../components/metaMask";
-import {ethers} from "ethers";
-import {set} from "mobx";
 
 
 const MainPage = () => {
@@ -37,7 +35,7 @@ const MainPage = () => {
            .then(response => console.log(response));
        return account;
     }
-
+//                 <Btn value='Connect wallet' func={onMetaMask} id={addr}/>
 
     return (
         <div>
@@ -47,8 +45,8 @@ const MainPage = () => {
                 <h3>1 000 000 ETH</h3>
             </div>
             <EmptyPlace/>
-            <Link to='/sacrifice' id={addr}>
-                <Btn value='Connect wallet' func={onMetaMask} id={addr}/>
+            <Link to={`/sacrifice/${addr}`}>
+                Connect to wallet
             </Link>;
             <button onClick={onMetaMask}>Meta Mask</button>
             <MetaMask updateAddress={updateAddress}/>

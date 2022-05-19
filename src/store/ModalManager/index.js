@@ -3,6 +3,7 @@ import {makeAutoObservable} from "mobx"
 class ModalManager {
     content = null;
     isOpened = false;
+    isRulesApproved = false;
 
     constructor() {
         makeAutoObservable(this)
@@ -22,6 +23,10 @@ class ModalManager {
 
     removeContent() {
         this.content = null
+    }
+
+    setRules(value) {
+        this.isRulesApproved = value
     }
 }
 

@@ -13,15 +13,14 @@ const ModalHowMuch = () => {
     const {ModalManager} = useStore();
 
     const onSacrificeClick = () => {
-        ModalManager.removeContent();
         ModalManager.setContent(<ModalSacrificeRules />);
-
     }
 
     const onSelectNFT = () => {
-        ModalManager.removeContent();
         ModalManager.setContent(<ModalThanks />);
     }
+
+    const onSacrificeButtonClick = !ModalManager.isRulesApproved ? onSacrificeClick : onSelectNFT;
 
     return (
         <div>
@@ -39,7 +38,7 @@ const ModalHowMuch = () => {
                     <Btn value={'Select NFT'} func={onSelectNFT}/>
                     <img src={help} alt='help'/>
                 </div>
-                <Btn value='Sacrifice' func={onSacrificeClick}/>
+                <Btn value='Sacrifice' func={onSacrificeButtonClick}/>
             </div>
         </div>
     );

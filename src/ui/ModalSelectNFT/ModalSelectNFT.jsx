@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Btn from "../../components/button";
 import letter from '../../assets/icons/letter.png'
 import ModalNoHaveNFT from "../ModalNoHaveNFT/ModalNoHaveNFT";
@@ -20,6 +20,10 @@ const ModalSelectNFT = () => {
         ModalManager.removeContent();
         ModalManager.setContent(<ModalHowMuch/>);
     }
+
+    useEffect(() => {
+        ModalManager.setRules(true);
+    }, [])
     return (
         <div>
             <div className='modal__header'>

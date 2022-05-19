@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import React from "react";
 
 import './ListOfPages.css'
@@ -7,9 +7,9 @@ const ListOfPages = () => {
     return (
 
         <div className='list-pages'>
-                <Link to='/sacrifice'>Sacrifice  </Link>
-                <Link to='/multipliers'>Multipliers  </Link>
-                <Link to='/statistics'>Statistics  </Link>
+                <NavLink to='/sacrifice'>Sacrifice  </NavLink>
+                <NavLink to='/multipliers'>Multipliers  </NavLink>
+                <NavLink to='/statistics'>Statistics  </NavLink>
         </div>
     )
 

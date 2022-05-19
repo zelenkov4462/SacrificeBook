@@ -7,21 +7,26 @@ import useStore from "../../hooks/useStore/useStore";
 import { observer } from "mobx-react-lite"
 import ModalHowMuch from "../../ui/ModalHowMuch/ModalHowMuch";
 import ListOfPages from "../../components/ListofPages/ListofPages";
+import {useEffect} from "react";
+import {useParams} from "react-router";
 
-const SacrificePage = ({id}) => {
-
+const SacrificePage = ({addr}) => {
+    const { dataAddress } = useParams();
     const { ModalManager } = useStore();
 
     const onSacrificeClick = () => {
         ModalManager.open();
         ModalManager.setContent(<ModalHowMuch />);
-
     }
+
+    useEffect(() => {
+        console.log('dataAddress', dataAddress)
+    }, [])
 
     return (
         <div>
             <ListOfPages/>
-            <WalletId id={id}/>
+            <WalletId id={addr}/>
             <AppHeader/>
             <div className={"sacrificeMainInfo"}>
                 <h3>Sacrificed right now</h3>
