@@ -7,6 +7,7 @@ import {observer} from "mobx-react-lite";
 const App = () => {
     const {ModalManager} = useStore();
 
+
     return (
         <>
             <RouteManager/>

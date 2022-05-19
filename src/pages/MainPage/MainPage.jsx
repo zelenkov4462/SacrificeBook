@@ -7,25 +7,32 @@ import './MainPage.css'
 import EmptyPlace from "../../components/EmptyPlace/EmptyPlace";
 import {Link} from "react-router-dom";
 import MetaMask from "../../components/metaMask";
+import MetaMaskUtils from "../../utils/MetaMaskUtils/MetaMaskUtils";
 
 
 const MainPage = () => {
 
-    const [addr, setAddr] = useState(null)
-    const updateAddress = (value) => {
-        setAddr(value);
-        console.log(addr)
-    }
+
 
     const ethereum = window.ethereum
 
+    // устарело
+    // if (ethereum.isMetaMask) {
+    //         console.log(ethereum.selectedAddress)
+    //     };
+
     if (ethereum.isMetaMask) {
-            console.log(ethereum.selectedAddress)
-        };
+        window.ethereum.request({method:'eth_requestAccounts'})
+            .then(res=>{
+                // Return the address of the wallet
+                console.log(res)
+            })
+        // ethereum.request({: 'eth_accounts' } )
+    };
 
     if (ethereum) {
         ethereum.on('accountsChanged', function (accounts) {
-            console.log(accounts)
+            setAddr(String(accounts))
         });
     }
 
@@ -34,6 +41,12 @@ const MainPage = () => {
        account = ethereum.request({method: 'eth_requestAccounts'})
            .then(response => console.log(response));
        return account;
+    }
+
+    const [addr, setAddr] = useState("")
+    const updateAddress = (value) => {
+        setAddr(value);
+        console.log(addr)
     }
 //                 <Btn value='Connect wallet' func={onMetaMask} id={addr}/>
 
@@ -45,10 +58,10 @@ const MainPage = () => {
                 <h3>1 000 000 ETH</h3>
             </div>
             <EmptyPlace/>
-            <Link to={`/sacrifice/${addr}`}>
+            <Link to={`/sacrifice/${addr}`} >
                 Connect to wallet
             </Link>;
-            <button onClick={onMetaMask}>Meta Mask</button>
+            <button onClick={updateAddress}>Meta Mask</button>
             <MetaMask updateAddress={updateAddress}/>
             <Footer/>
         </div>

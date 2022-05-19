@@ -15,9 +15,9 @@ const RouteManager = () => {
                 <Route path="/">
                     <Route index element={<MainPage />} />
                     <Route path="sacrifice" element={<SacrificePage/>}>
-                        <Route path=":dataAddress" element={<SacrificePage/>} />
+                        <Route path=":dataAddress" element={<SacrificePage />} />
                     </Route>
-                    <Route path="multipliers" element={<MultipliersPage/>} />
+                    <Route path="multipliers" element={<MultipliersPage/>}/>
                     <Route path="statistics" element={<StatisticsPage/>} />
                 </Route>
             </Routes>

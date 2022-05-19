@@ -13,6 +13,6 @@ code {
 }
 
 .active {
-  background-color: #1E90FF;
+  background-color: rgba(0,0,0,.5);
   cursor: default;
 }

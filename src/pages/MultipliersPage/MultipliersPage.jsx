@@ -1,24 +1,29 @@
 import {observer} from "mobx-react-lite";
 
     import AppHeader from "../../components/app-header";
-    import EmptyPlace from "../../components/EmptyPlace/EmptyPlace";
     import Btn from "../../components/button";
     import Footer from "../../components/footer";
     import WalletId from "../../components/WalletId/WalletId";
 import ListOfPages from "../../components/ListofPages/ListofPages";
+import {useParams} from "react-router";
+import {useEffect} from "react";
 
 
     const MultipliersPage = () => {
+
+        const { dataAddress } = useParams();
 
         const onSacrificeClick = () => {
 
 
         }
-
+        useEffect(() => {
+            console.log('dataAddress', dataAddress)
+        }, [])
         return (
             <div>
                 <ListOfPages/>
-                <WalletId id={'0x98685c69887'}/>
+                <WalletId id={dataAddress}/>
                 <AppHeader/>
                 <div className={"sacrificeMainInfo"}>
                     <h3>NFT sold</h3>
@@ -41,4 +46,4 @@ import ListOfPages from "../../components/ListofPages/ListofPages";
         )
 
 }
-export default MultipliersPage;
+export default observer(MultipliersPage);

@@ -12,6 +12,11 @@ function MetaMask({updateAddress}) {
         Balance: null,
     });
 
+    if (window.ethereum) {
+        window.ethereum.on('accountsChanged', function (accounts) {
+            setdata({address: String(accounts)})
+        });
+    }
     // Button handler button for handling a
     // request event for metamask
     const btnhandler = () => {

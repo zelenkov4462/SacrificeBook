@@ -10,8 +10,9 @@ import ListOfPages from "../../components/ListofPages/ListofPages";
 import {useEffect} from "react";
 import {useParams} from "react-router";
 
-const SacrificePage = ({addr}) => {
+const SacrificePage = () => {
     const { dataAddress } = useParams();
+
     const { ModalManager } = useStore();
 
     const onSacrificeClick = () => {
@@ -26,7 +27,7 @@ const SacrificePage = ({addr}) => {
     return (
         <div>
             <ListOfPages/>
-            <WalletId id={addr}/>
+            <WalletId id={dataAddress}/>
             <AppHeader/>
             <div className={"sacrificeMainInfo"}>
                 <h3>Sacrificed right now</h3>
