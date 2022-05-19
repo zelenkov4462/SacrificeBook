@@ -17,6 +17,7 @@ const Styles = styled.div`
     border: 1px solid black;
     font-size: 15px;
      font-weight: bold;
+     
 
     .tr {
       :last-child {
@@ -44,6 +45,8 @@ const Styles = styled.div`
       padding: 0.5rem;
       border-bottom: 1px solid black;
       border-right: 1px solid black;
+      overflow: hidden;
+      
      
       ${'' /* In this example we use an absolutely position resizer,
        so this is required. */}
@@ -65,6 +68,7 @@ const Styles = styled.div`
         z-index: 1;
         ${'' /* prevents from scrolling while dragging on touch devices */}
         touch-action:none;
+        
 
         &.isResizing {
           background: black;

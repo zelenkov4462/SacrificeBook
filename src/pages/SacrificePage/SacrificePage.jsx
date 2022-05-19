@@ -9,11 +9,19 @@ import ModalHowMuch from "../../ui/ModalHowMuch/ModalHowMuch";
 import ListOfPages from "../../components/ListofPages/ListofPages";
 import {useEffect} from "react";
 import {useParams} from "react-router";
+import MetaMaskUtils from "../../utils/MetaMaskUtils/MetaMaskUtils";
 
 const SacrificePage = () => {
     const { dataAddress } = useParams();
 
     const { ModalManager } = useStore();
+
+    const { MetaMaskUtils } = useStore();
+
+    const onChangeState = () => {
+        MetaMaskUtils.toggle();
+        console.log(MetaMaskUtils.address, MetaMaskUtils.balance)
+    }
 
     const onSacrificeClick = () => {
         ModalManager.open();
@@ -38,6 +46,7 @@ const SacrificePage = () => {
                 <h3>1 000 ETH</h3>
             </div>
             <EmptyPlace/>
+            <Btn value='change' func={onChangeState}/>
             <Btn value={'Sacrifice!'} func={onSacrificeClick} />
             <Footer/>
         </div>

@@ -1,14 +1,18 @@
 import {makeAutoObservable} from "mobx"
-import {ethers} from "ethers";
-import {useState} from "react";
 
-const MetaMaskUtils = () => {
+class MetaMaskUtils {
+    address = true;
+    balance = true;
 
-    const [data, setData] = useState({
-        address: "",
-        Balance: null,
-    })
+
+    constructor() {
+        makeAutoObservable(this)
+    }
+
+    toggle() {
+        this.address = !this.address;
+        this.balance = !this.balance;
+    }
 }
-
 
 export default MetaMaskUtils;

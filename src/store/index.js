@@ -1,11 +1,11 @@
 import ModalManager from "./ModalManager";
-import MetaMaskUtils from '../utils/MetaMaskUtils/MetaMaskUtils'
 import {createContext} from "react";
+import MetaMaskUtils from "../utils/MetaMaskUtils/MetaMaskUtils";
 
 
 const store = createContext({
     ModalManager: new ModalManager(),
-
+    MetaMaskUtils: new MetaMaskUtils()
 });
 
 export default store;
