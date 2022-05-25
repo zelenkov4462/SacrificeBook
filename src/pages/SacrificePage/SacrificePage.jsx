@@ -7,35 +7,37 @@ import useStore from "../../hooks/useStore/useStore";
 import { observer } from "mobx-react-lite"
 import ModalHowMuch from "../../ui/ModalHowMuch/ModalHowMuch";
 import ListOfPages from "../../components/ListofPages/ListofPages";
-import {useEffect} from "react";
-import {useParams} from "react-router";
-import MetaMaskUtils from "../../utils/MetaMaskUtils/MetaMaskUtils";
+import {useEffect} from 'react';
+import MetaMaskController from "../../utils/MetaMaskController/MetaMaskController";
+import { useParams } from "react-router-dom";
+import useAsyncEffect from "../../hooks/useAsyncEffect/useAsyncEffect";
 
 const SacrificePage = () => {
+    const { ModalManager, UserCredentials } = useStore();
     const { dataAddress } = useParams();
+    async function onChangeAccount ()  {
+        await MetaMaskController.changeAccount();
 
-    const { ModalManager } = useStore();
-
-    const { MetaMaskUtils } = useStore();
-
-    const onChangeState = () => {
-        MetaMaskUtils.toggle();
-        console.log(MetaMaskUtils.address, MetaMaskUtils.balance)
     }
+    // onChangeAccount();
 
     const onSacrificeClick = () => {
         ModalManager.open();
         ModalManager.setContent(<ModalHowMuch />);
     }
 
-    useEffect(() => {
-        console.log('dataAddress', dataAddress)
+    useAsyncEffect(async () => {
+        if (dataAddress) {
+            const {address, balance} = await MetaMaskController.getAddressAndBalance();
+            UserCredentials.setAddress(address);
+            UserCredentials.setBalance(balance);
+        }
     }, [])
 
     return (
         <div>
             <ListOfPages/>
-            <WalletId id={dataAddress}/>
+            <WalletId id={UserCredentials.address}/>
             <AppHeader/>
             <div className={"sacrificeMainInfo"}>
                 <h3>Sacrificed right now</h3>
@@ -43,10 +45,9 @@ const SacrificePage = () => {
             </div>
             <div className={"sacrificeMainInfo"}>
                 <h3>You sacrificed:</h3>
-                <h3>1 000 ETH</h3>
+                <h3> {UserCredentials.balance} ETH</h3>
             </div>
             <EmptyPlace/>
-            <Btn value='change' func={onChangeState}/>
             <Btn value={'Sacrifice!'} func={onSacrificeClick} />
             <Footer/>
         </div>

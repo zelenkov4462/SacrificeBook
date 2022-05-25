@@ -2,53 +2,29 @@ import AppHeader from "../../components/app-header";
 import Btn from "../../components/button";
 import Footer from "../../components/footer";
 import React, {useState} from "react";
-
+import { useNavigate } from "react-router-dom";
 import './MainPage.css'
 import EmptyPlace from "../../components/EmptyPlace/EmptyPlace";
 import {Link} from "react-router-dom";
-import MetaMask from "../../components/metaMask";
-import MetaMaskUtils from "../../utils/MetaMaskUtils/MetaMaskUtils";
-
+import useStore from "../../hooks/useStore/useStore";
+import {observer} from "mobx-react-lite";
+import MetaMaskController from "../../utils/MetaMaskController/MetaMaskController";
 
 const MainPage = () => {
+    const navigate = useNavigate();
+    const { UserCredentials } = useStore();
 
-
-
-    const ethereum = window.ethereum
-
-    // устарело
-    // if (ethereum.isMetaMask) {
-    //         console.log(ethereum.selectedAddress)
-    //     };
-
-    if (ethereum.isMetaMask) {
-        window.ethereum.request({method:'eth_requestAccounts'})
-            .then(res=>{
-                // Return the address of the wallet
-                console.log(res)
-            })
-        // ethereum.request({: 'eth_accounts' } )
-    };
-
-    if (ethereum) {
-        ethereum.on('accountsChanged', function (accounts) {
-            setAddr(String(accounts))
-        });
+    async function onChangeAccount ()  {
+        await MetaMaskController.changeAccount();
     }
+    // onChangeAccount();
 
-   const onMetaMask = () => {
-       let account;
-       account = ethereum.request({method: 'eth_requestAccounts'})
-           .then(response => console.log(response));
-       return account;
+    async function onConnectWallet() {
+        const {address, balance} = await MetaMaskController.getAddressAndBalance();
+        UserCredentials.setAddress(address);
+        UserCredentials.setBalance(balance);
+        navigate(`/sacrifice/${address}`);
     }
-
-    const [addr, setAddr] = useState("")
-    const updateAddress = (value) => {
-        setAddr(value);
-        console.log(addr)
-    }
-//                 <Btn value='Connect wallet' func={onMetaMask} id={addr}/>
 
     return (
         <div>
@@ -58,15 +34,18 @@ const MainPage = () => {
                 <h3>1 000 000 ETH</h3>
             </div>
             <EmptyPlace/>
-            <Link to={`/sacrifice/${addr}`} >
+            <Link to={`/sacrifice/${''}`} >
                 Connect to wallet
             </Link>;
-            <button onClick={updateAddress}>Meta Mask</button>
-            <MetaMask updateAddress={updateAddress}/>
+            <Btn value='Connect wallet 2' func={onConnectWallet}></Btn>
+            {/*<MetaMask updateAddress={''}/>*/}
+
+            <div><strong>Address:</strong> {UserCredentials.address}</div>
+            <div><strong>Balance:</strong> {UserCredentials.balance}</div>
             <Footer/>
         </div>
     )
 }
 
-export default MainPage;
+export default observer(MainPage);
 
