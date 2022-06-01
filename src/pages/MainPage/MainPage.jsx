@@ -12,12 +12,10 @@ import MetaMaskController from "../../utils/MetaMaskController/MetaMaskControlle
 
 const MainPage = () => {
     const navigate = useNavigate();
-    const { UserCredentials } = useStore();
 
-    async function onChangeAccount ()  {
-        await MetaMaskController.changeAccount();
-    }
-    // onChangeAccount();
+    const { UserCredentials} = useStore();
+
+
 
     async function onConnectWallet() {
         const {address, balance} = await MetaMaskController.getAddressAndBalance();
@@ -34,11 +32,7 @@ const MainPage = () => {
                 <h3>1 000 000 ETH</h3>
             </div>
             <EmptyPlace/>
-            <Link to={`/sacrifice/${''}`} >
-                Connect to wallet
-            </Link>;
-            <Btn value='Connect wallet 2' func={onConnectWallet}></Btn>
-            {/*<MetaMask updateAddress={''}/>*/}
+            <Btn value='Connect wallet 2' func={onConnectWallet}/>
 
             <div><strong>Address:</strong> {UserCredentials.address}</div>
             <div><strong>Balance:</strong> {UserCredentials.balance}</div>

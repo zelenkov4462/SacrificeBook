@@ -7,6 +7,11 @@ import EmptyPlace from "../../components/EmptyPlace/EmptyPlace";
 
 import styled from 'styled-components'
 import { useTable, useBlockLayout, useResizeColumns } from 'react-table'
+import useStore from "../../hooks/useStore/useStore";
+import useAsyncEffect from "../../hooks/useAsyncEffect/useAsyncEffect";
+import MetaMaskController from "../../utils/MetaMaskController/MetaMaskController";
+import {useParams} from "react-router";
+import {observer} from "mobx-react-lite";
 
 const Styles = styled.div`
   padding: 1rem;
@@ -156,6 +161,22 @@ function Table({ columns, data }) {
 
 const StatisticsPage = () => {
 
+    const {dataAddress} = useParams();
+
+    const { UserCredentials } = useStore();
+
+    useAsyncEffect(async () => {
+        // if (dataAddress) {
+            const {address, balance} = await MetaMaskController.getAddressAndBalance();
+            UserCredentials.setAddress(address);
+            UserCredentials.setBalance(balance);
+
+        }, [])
+
+    async function onChangeAccount ()  {
+        await MetaMaskController.changeAccount();
+    }
+
 
 
     const data = React.useMemo(
@@ -243,7 +264,7 @@ const StatisticsPage = () => {
     return (
         <div>
             <ListOfPages/>
-            <WalletId id={'0x98685c69887'}/>
+            <WalletId id={UserCredentials.address}/>
             <AppHeader/>
             <Styles>
                 <Table columns={columns} data={data} />
@@ -253,4 +274,4 @@ const StatisticsPage = () => {
         </div>
     )
 }
-export default StatisticsPage;
+export default observer(StatisticsPage);

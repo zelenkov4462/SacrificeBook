@@ -15,24 +15,26 @@ import useAsyncEffect from "../../hooks/useAsyncEffect/useAsyncEffect";
 const SacrificePage = () => {
     const { ModalManager, UserCredentials } = useStore();
     const { dataAddress } = useParams();
-    async function onChangeAccount ()  {
-        await MetaMaskController.changeAccount();
 
+
+    useAsyncEffect(async () => {
+        if (dataAddress) {
+        const {address, balance} = await MetaMaskController.getAddressAndBalance();
+        UserCredentials.setAddress(address);
+        UserCredentials.setBalance(balance);
     }
-    // onChangeAccount();
+    }, [])
+
+
+    async function onChangeAccount ()  {
+            await MetaMaskController.changeAccount();
+        }
+
 
     const onSacrificeClick = () => {
         ModalManager.open();
         ModalManager.setContent(<ModalHowMuch />);
     }
-
-    useAsyncEffect(async () => {
-        if (dataAddress) {
-            const {address, balance} = await MetaMaskController.getAddressAndBalance();
-            UserCredentials.setAddress(address);
-            UserCredentials.setBalance(balance);
-        }
-    }, [])
 
     return (
         <div>

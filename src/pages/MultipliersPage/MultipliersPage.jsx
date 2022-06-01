@@ -6,36 +6,39 @@ import {observer} from "mobx-react-lite";
     import WalletId from "../../components/WalletId/WalletId";
 import ListOfPages from "../../components/ListofPages/ListofPages";
 import {useParams} from "react-router";
-import {useEffect} from "react";
 import useStore from "../../hooks/useStore/useStore";
 import MetaMaskController from "../../utils/MetaMaskController/MetaMaskController";
+import useAsyncEffect from "../../hooks/useAsyncEffect/useAsyncEffect";
+import {useNavigate} from "react-router-dom";
 
 
     const MultipliersPage = () => {
+        const navigate = useNavigate();
 
-        const { MetaMaskUtils } = useStore();
+        const {dataAddress} = useParams();
 
-        const address = MetaMaskUtils.address;
-        const balance = MetaMaskUtils.balance;
+        const { UserCredentials } = useStore();
 
+        useAsyncEffect(async () => {
+                const {address, balance} = await MetaMaskController.getAddressAndBalance();
+                UserCredentials.setAddress(address);
+                UserCredentials.setBalance(balance);
+                navigate(`/multipliers/${address}`)
+            }, [])
 
         async function onChangeAccount ()  {
             await MetaMaskController.changeAccount();
-
         }
-        onChangeAccount();
+
 
         const onSacrificeClick = () => {
 
-
         }
-        // useEffect(() => {
-        //     console.log('dataAddress', dataAddress)
-        // }, [])
+
         return (
             <div>
                 <ListOfPages/>
-                <WalletId id={address}/>
+                <WalletId id={UserCredentials.address}/>
                 <AppHeader/>
                 <div className={"sacrificeMainInfo"}>
                     <h3>NFT sold</h3>
